@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEXUS // Cyberpunk AI Tools Browser & Tactical Intelligence</title>
+  <meta name="description" content="High-octane cyberpunk neon browser and tactical navigator for essential AI tools. Instant search, deep capability dossiers, and non-intrusive AI intelligence advisor.">
+  <meta name="theme-color" content="#05060a">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- Favicon placeholder using SVG data URI -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+</head>
+<body>
+
+  <!-- Cyberpunk Scanline Filter Overlay -->
+  <div class="scanlines-overlay" aria-hidden="true"></div>
+
+  <!-- Top Telemetry Strip -->
+  <div class="cyber-telemetry-strip" role="region" aria-label="System Telemetry">
+    <div class="telemetry-left">
+      <div class="telemetry-badge">
+        <span class="pulse-dot"></span>
+        <span class="text-lime font-mono">CORE STATUS: SYNCHRONIZED</span>
+      </div>
+      <span class="font-mono text-dim" id="telemetry-node-count">ACTIVE NODES: 20</span>
+      <span class="font-mono text-cyan" id="telemetry-ping">LATENCY: 12ms</span>
+    </div>
+
+    <div class="telemetry-right">
+      <button id="scanline-toggle-btn" class="hud-toggle-btn" title="Toggle CRT Scanline Overlay">SCANLINES: ON</button>
+      <button id="audio-toggle-btn" class="hud-toggle-btn" title="Toggle Synthetic Audio Effects">AUDIO: ON</button>
+      <span class="font-mono text-pink">SEC_PROTOCOL: V7.4_NOMINAL</span>
+    </div>
+  </div>
+
+  <!-- Main Cyber Header -->
+  <header class="cyber-header">
+    <div class="cyber-brand" onclick="resetAllFilters()">
+      <div class="cyber-logo-frame cyber-cut">
+        <img src="cyber-logo.jpg" alt="Nexus AI Browser Emblem" class="cyber-logo-img">
+      </div>
+      <div class="brand-text-block">
+        <h1>NEXUS <span class="text-cyan">//</span> AI BROWSER</h1>
+        <div class="brand-sub">TACTICAL NEURAL TOOL NAVIGATOR</div>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <button class="cyber-btn cyber-btn-pink cyber-cut" onclick="nexusAssistant.toggle()">
+        <span>◈ AI ORACLE</span>
+        <span class="key-badge">CTRL+K</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero & Command Center -->
+  <main>
+    <section class="hero-deck" aria-label="Command Search Matrix">
+      <div class="deck-banner">
+        <div class="deck-tagline">SYSTEM ACTIVE // GLOBAL INTELLIGENCE MAPPING</div>
+        <h2 class="deck-title">NAVIGATE <span class="text-cyan">THE AI FRONTIER</span></h2>
+      </div>
+
+      <!-- Main Omni-Search HUD -->
+      <div class="search-hud-container">
+        <div class="search-input-wrapper cyber-cut">
+          <span class="search-icon-prefix">▶</span>
+          <input 
+            type="text" 
+            id="main-search-input" 
+            class="cyber-search-input" 
+            placeholder="Search AI tools by name, superpower, pricing, or keyword (e.g. 'code', 'video', 'free', 'Claude')..."
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Search AI tools"
+          >
+          <div class="search-hud-controls">
+            <button id="search-clear-btn" class="search-clear-btn" title="Clear Search">✕</button>
+            <span class="key-badge">PRESS [/]</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Filter Matrix -->
+      <nav class="matrix-filter-bar" id="category-filter-matrix" aria-label="Category Filters">
+        <!-- Rendered dynamically via JavaScript -->
+      </nav>
+
+      <!-- Sub-filter row: Pricing, Sorting, Favorites -->
+      <div class="sub-filter-row">
+        <div class="sub-filter-group">
+          <label for="pricing-select" class="filter-label">PRICING TIER:</label>
+          <select id="pricing-select" class="cyber-select cyber-cut" aria-label="Filter by pricing">
+            <option value="all">ALL TIERS</option>
+            <option value="Free">FREE & OPEN</option>
+            <option value="Freemium">FREEMIUM</option>
+            <option value="Paid">COMMERCIAL / PAID</option>
+          </select>
+        </div>
+
+        <div class="sub-filter-group">
+          <label for="sort-select" class="filter-label">SORT SEQUENCE:</label>
+          <select id="sort-select" class="cyber-select cyber-cut" aria-label="Sort tools">
+            <option value="rating">HIGHEST RATING ★</option>
+            <option value="name">ALPHABETICAL (A-Z)</option>
+            <option value="category">BY CATEGORY</option>
+          </select>
+
+          <button id="fav-toggle-btn" class="fav-toggle-btn cyber-cut" onclick="toggleFavoritesOnly()">
+            <span>★</span> PINNED ONLY
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tools Grid Container -->
+    <section class="tools-grid-container" aria-label="Registered AI Tools">
+      <div class="results-meta-bar">
+        <span id="results-count" class="font-mono text-cyan">INITIALIZING MATRIX...</span>
+        
+        <div class="meta-controls">
+          <div class="view-mode-toggle" role="group" aria-label="Card View Mode">
+            <button class="view-mode-btn active" data-mode="3d" onclick="setViewMode('3d')" title="3D Interactive Holographic Cards (Touch & Tilt)">
+              ❖ 3D HOLOGRAPHIC
+            </button>
+            <button class="view-mode-btn" data-mode="grid" onclick="setViewMode('grid')" title="Classic Compact Cyber Grid">
+              ⊞ TACTICAL GRID
+            </button>
+          </div>
+          <span class="font-mono text-dim" style="display: none; @media(min-width: 600px){display: inline;}">TOUCH / HOVER TO TILT</span>
+        </div>
+      </div>
+
+      <div class="tools-grid" id="tools-grid" role="region" aria-live="polite">
+        <!-- Rendered dynamically via JavaScript -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Tactical Dossier Modal Dialog (Deep Explanations) -->
+  <div class="cyber-modal-overlay" id="tool-dossier-modal" role="dialog" aria-modal="true" aria-label="Tool Dossier">
+    <div class="cyber-modal-dialog cyber-cut" id="modal-dossier-content">
+      <!-- Injected dynamically on click -->
+    </div>
+  </div>
+
+  <!-- AI Assistant Slide-Out Cyber-Drawer (Non-Intrusive, Anti-Clutter) -->
+  <aside class="ai-cyber-drawer" id="ai-assistant-drawer" role="complementary" aria-label="AI Tactical Assistant">
+    <div class="drawer-header">
+      <div class="drawer-brand">
+        <span class="text-pink">◈</span>
+        <h3>NEXUS-7 <span class="text-cyan">//</span> ORACLE</h3>
+      </div>
+      <div class="drawer-controls">
+        <button class="drawer-btn-icon" onclick="nexusAssistant.clear()" title="Purge Terminal History">⟲</button>
+        <button class="drawer-btn-icon" onclick="nexusAssistant.openApiKeyModal()" title="Connect Live Gemini API">⚙</button>
+        <button class="drawer-btn-icon" onclick="nexusAssistant.close()" title="Minimize Deck (Esc)">✕</button>
+      </div>
+    </div>
+
+    <div class="drawer-telemetry">
+      <span id="ai-status-indicator">STANDBY // READY</span>
+      <span class="text-dim">NON-INTRUSIVE DOCK</span>
+    </div>
+
+    <!-- Scrollable response stream -->
+    <div class="ai-stream-container" id="ai-response-stream">
+      <!-- Dynamic messages and briefings -->
+    </div>
+
+    <!-- Bottom Query Input Bar -->
+    <div class="drawer-input-area">
+      <form class="drawer-input-form cyber-cut" id="ai-query-form">
+        <input 
+          type="text" 
+          id="ai-query-input" 
+          class="drawer-query-input" 
+          placeholder="Ask tactical questions or compare tools..."
+          autocomplete="off"
+        >
+        <button type="submit" class="drawer-send-btn" title="Send Interrogation Query">➤</button>
+      </form>
+      <div class="drawer-input-hint">
+        <span>Dual Engine: Local Vectors + Gemini Link</span>
+        <span>Esc to close</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Floating Discreet AI Trigger Pill (Bottom Right) -->
+  <div class="floating-ai-trigger cyber-cut" onclick="nexusAssistant.toggle()" title="Open AI Tactical Companion (Ctrl+K)">
+    <span class="orb-pulse"></span>
+    <span class="orb-label">AI COMPANION</span>
+    <span class="orb-key">CTRL+K</span>
+  </div>
+
+  <!-- Cyber Toast HUD Notification -->
+  <div class="cyber-toast cyber-cut" id="cyber-toast" role="status" aria-live="polite">
+    [!] SYSTEM MESSAGE
+  </div>
+
+  <!-- Application Scripts -->
+  <script src="data.js"></script>
+  <script src="cyber-audio.js"></script>
+  <script src="assistant.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
