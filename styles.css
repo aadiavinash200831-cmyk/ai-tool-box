@@ -1783,28 +1783,400 @@ body.scanlines-off .scanlines-overlay {
 }
 
 /* ==========================================================================
-   RESPONSIVE DESIGN (Adaptive Cyber Deck)
+   RESPONSIVE DESIGN (Adaptive Cyber Deck & Mobile Optimization)
    ========================================================================== */
-@media (max-width: 900px) {
+
+/* Universal Touch & Mobile Polish */
+@media (hover: none) and (pointer: coarse) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .cyber-card, .interactive-card {
+    touch-action: pan-y;
+  }
+
+  .interactive-card:active {
+    transform: scale(0.98);
+  }
+
+  .cyber-btn:active, .category-chip:active, .hud-toggle-btn:active {
+    filter: brightness(1.3);
+  }
+}
+
+/* Tablet & Intermediate Screens (<= 992px) */
+@media (max-width: 992px) {
+  :root {
+    --header-height: 70px;
+  }
+
   .cyber-header {
-    padding: 0 16px;
+    padding: 0 20px;
   }
+
   .deck-title {
-    font-size: 1.6rem;
+    font-size: 1.85rem;
   }
+
+  .tools-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .hero-deck, .tools-grid-container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .ai-cyber-drawer {
+    width: 480px;
+    max-width: 100vw;
+  }
+
+  .sub-filter-row {
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+}
+
+/* Mobile Screens (<= 768px) */
+@media (max-width: 768px) {
   .tools-grid {
     grid-template-columns: 1fr;
+    gap: 18px;
   }
-  .hero-deck, .tools-grid-container {
-    padding-left: 16px;
-    padding-right: 16px;
+
+  /* Telemetry Strip Mobile Adjustments */
+  .cyber-telemetry-strip {
+    padding: 6px 14px;
+    font-size: 0.68rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    gap: 12px;
   }
+  .cyber-telemetry-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  #telemetry-ping, .telemetry-right span {
+    display: none;
+  }
+
+  .telemetry-left, .telemetry-right {
+    gap: 10px;
+  }
+
+  .hud-toggle-btn {
+    padding: 4px 10px;
+    min-height: 30px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Header Compact Mobile */
+  .cyber-header {
+    padding: 0 14px;
+    height: 64px;
+  }
+
+  .cyber-logo-frame {
+    width: 38px;
+    height: 38px;
+  }
+
+  .brand-text-block h1 {
+    font-size: 1.15rem;
+    letter-spacing: 0.1em;
+  }
+
+  .brand-sub {
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+  }
+
+  .cyber-btn {
+    padding: 8px 14px;
+    font-size: 0.75rem;
+  }
+
+  .header-actions .key-badge {
+    display: none;
+  }
+
+  /* Hero Deck Mobile */
+  .hero-deck {
+    padding: 24px 14px 16px 14px;
+  }
+
+  .deck-tagline {
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+  }
+
+  .deck-title {
+    font-size: 1.45rem;
+    letter-spacing: 0.04em;
+    margin-bottom: 16px;
+  }
+
+  /* Omni-Search Mobile */
+  .search-hud-container {
+    margin-bottom: 16px;
+  }
+
+  .search-input-wrapper {
+    padding: 2px 12px;
+  }
+
+  .cyber-search-input {
+    font-size: 16px; /* Prevents iOS auto-zoom */
+    padding: 12px 0;
+  }
+
+  .search-hud-controls .key-badge {
+    display: none;
+  }
+
+  .search-clear-btn {
+    padding: 8px;
+    min-width: 36px;
+    min-height: 36px;
+  }
+
+  /* Category Filter Matrix Swipeable Mobile Row */
+  .matrix-filter-bar {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 6px;
+    margin-bottom: 16px;
+    gap: 8px;
+    /* Edge fade indicator */
+    mask-image: linear-gradient(to right, black 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+  }
+  .matrix-filter-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .category-chip {
+    flex-shrink: 0;
+    padding: 8px 14px;
+    font-size: 0.72rem;
+    min-height: 38px;
+    border-radius: 8px;
+  }
+
+  /* Sub Filter Controls Mobile */
+  .sub-filter-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    background: rgba(8, 12, 22, 0.7);
+    padding: 12px;
+    border: 1px solid var(--border-dim);
+    border-radius: 10px;
+  }
+
+  .sub-filter-group {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .filter-label {
+    font-size: 0.72rem;
+    min-width: 90px;
+  }
+
+  .cyber-select {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    min-height: 40px;
+    border-radius: 6px;
+  }
+
+  .fav-toggle-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 10px 14px;
+    font-size: 0.8rem;
+    min-height: 42px;
+    border-radius: 6px;
+  }
+
+  /* Results Meta Bar */
+  .results-meta-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding-bottom: 12px;
+  }
+
+  .meta-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .view-mode-toggle {
+    width: 100%;
+    display: flex;
+  }
+
+  .view-mode-btn {
+    flex: 1;
+    text-align: center;
+    padding: 8px 12px;
+    font-size: 0.72rem;
+    min-height: 38px;
+  }
+
+  .tools-grid-container {
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-bottom: 80px; /* Space for floating pill */
+  }
+
+  /* Cards Mobile Polish */
+  .interactive-card, .cyber-card {
+    border-radius: 14px !important;
+    padding: 16px;
+  }
+
+  .card-action-bar {
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .btn-access-node, .btn-intel-dossier, .btn-quick-explain {
+    min-height: 44px; /* Apple/Google recommended touch target */
+    font-size: 0.78rem;
+    padding: 10px 12px;
+    border-radius: 8px;
+  }
+
+  /* AI Assistant Cyber-Drawer Full-Screen Mobile Sheet */
   .ai-cyber-drawer {
     width: 100vw;
     max-width: 100vw;
-  }
-  .sub-filter-row {
+    height: 100dvh;
+    max-height: 100dvh;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border-left: none;
+    border-top: 1px solid var(--neon-pink);
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    z-index: 1200;
+  }
+
+  .drawer-header {
+    padding: 14px 16px;
+    padding-top: max(14px, env(safe-area-inset-top));
+  }
+
+  .drawer-input-area {
+    padding: 12px 14px;
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+    background: rgba(5, 7, 13, 0.98);
+  }
+
+  .drawer-query-input {
+    font-size: 16px; /* Prevents mobile zoom */
+    padding: 10px 0;
+  }
+
+  .drawer-send-btn {
+    padding: 8px 12px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Dossier Modal Mobile Bottom Sheet View */
+  .cyber-modal-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .cyber-modal-dialog {
+    max-width: 100vw;
+    width: 100vw;
+    max-height: 92dvh;
+    border-radius: 20px 20px 0 0 !important;
+    border-bottom: none;
+    margin: 0;
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+  }
+
+  .modal-header {
+    padding: 16px 18px;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .modal-title {
+    font-size: 1.15rem;
+  }
+
+  .modal-close-btn {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .modal-body {
+    padding: 16px;
+    max-height: calc(92dvh - 150px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .modal-footer-actions {
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px 16px;
+  }
+
+  .modal-footer-actions .cyber-btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 46px;
+  }
+
+  /* Floating Trigger Orb Mobile */
+  .floating-ai-trigger {
+    bottom: max(18px, env(safe-area-inset-bottom));
+    right: 16px;
+    padding: 10px 14px;
+    border-radius: 30px;
+    box-shadow: 0 0 25px rgba(255, 0, 85, 0.5);
+  }
+
+  .floating-ai-trigger .orb-key {
+    display: none;
+  }
+
+  .floating-ai-trigger .orb-label {
+    font-size: 0.72rem;
+  }
+}
+
+/* Extra Compact Mobile (< 380px) */
+@media (max-width: 380px) {
+  .brand-text-block h1 {
+    font-size: 0.98rem;
+  }
+  .deck-title {
+    font-size: 1.25rem;
+  }
+  .card-action-bar {
+    flex-direction: column;
   }
 }
