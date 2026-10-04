@@ -1,37 +1,13 @@
 {
-  "name": "interactive-card-shadcn",
+  "name": "nexus-ai-browser",
   "version": "1.0.0",
   "private": true,
+  "description": "NEXUS // Cyberpunk AI Tools Browser & Tactical Intelligence",
+  "main": "server.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "node server.js"
   },
   "dependencies": {
-    "clsx": "^2.1.1",
-    "express": "^5.2.1",
-    "lucide-react": "^0.475.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "tailwind-merge": "^3.0.1"
-  },
-  "devDependencies": {
-    "@types/node": "^22.0.0",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.5.1",
-    "tailwindcss": "^3.4.17",
-    "typescript": "^5.7.3"
-  },
-  "description": "",
-  "main": "app.js",
-  "directories": {
-    "lib": "lib"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs"
+    "express": "^5.2.1"
+  }
 }
